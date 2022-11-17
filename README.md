@@ -34,7 +34,7 @@ Before using this project, please consult the [Terms and Conditions](#terms-and-
 To install the package with the latest changes in this repo
 
 ```bash
-pip3 install git+https://github.com/tomquirk/linkedin-api.git
+pip3 install git+https://github.com/SIF-FCHIARI/linkedin-api.git
 ```
 
 To install PyPI version:
