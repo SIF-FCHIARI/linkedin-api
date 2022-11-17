@@ -380,7 +380,7 @@ class Linkedin(object):
 
         return results
 
-    def search_companies(self, keywords=None, **kwargs):
+    def search_companies(self, keywords=None, regions=None, industries=None, **kwargs):
         """Perform a LinkedIn search for companies.
 
         :param keywords: A list of search keywords (str)
