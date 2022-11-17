@@ -385,11 +385,20 @@ class Linkedin(object):
 
         :param keywords: A list of search keywords (str)
         :type keywords: list, optional
+        :param regions: A list of geo URN IDs (str)
+        :type regions: list, optional
+        :type industries: list, optional
+        :param industries: A list of industry URN IDs (str)
 
         :return: List of companies
         :rtype: list
         """
         filters = ["resultType->COMPANIES"]
+        
+        if regions:
+            filters.append(f'geoUrn->{"|".join(regions)}')
+        if industries:
+            filters.append(f'industry->{"|".join(industries)}')
 
         params = {
             "filters": "List({})".format(",".join(filters)),
