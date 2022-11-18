@@ -355,7 +355,8 @@ class Linkedin(object):
         if keyword_school:
             filters.append(f"school->{keyword_school}")
 
-        params = {"filters": "List({})".format(",".join(filters))}
+        params = {"filters": "List({})".format(",".join(filters)), 
+                  "queryContext": "List(spellCorrectionEnabled->true)"}
 
         if keywords:
             params["keywords"] = keywords
@@ -401,7 +402,9 @@ class Linkedin(object):
         """
         filters = ["resultType->COMPANIES"]
         
-        params = {"filters": "List({})".format(",".join(filters))}
+        params = {"filters": "List({})".format(",".join(filters)),
+                  "queryContext": "List(spellCorrectionEnabled->true)"}
+}
 
         if keywords:
             params["keywords"] = keywords
