@@ -213,13 +213,13 @@ class Linkedin(object):
             # when we're close to the limit, only fetch what we need to
             if limit > -1 and limit - len(results) < count:
                 count = limit - len(results)
-                default_params = {
+            default_params = {
                 "count": str(count),
                 "filters": "List()",
                 "origin": "GLOBAL_SEARCH_HEADER",
                 "q": "all",
                 "start": len(results) + offset,
-                "queryContext": "List(spellCorrectionEnabled->true,relatedSearchesEnabled->true,kcardTypes->PROFILE|COMPANY)",}
+                "queryContext": "List(spellCorrectionEnabled->true,relatedSearchesEnabled->true,kcardTypes->PROFILE|COMPANY)"}
                 
             default_params.update(params)
 
