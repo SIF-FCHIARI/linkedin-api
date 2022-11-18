@@ -214,13 +214,14 @@ class Linkedin(object):
             if limit > -1 and limit - len(results) < count:
                 count = limit - len(results)
             default_params = {
+                default_params = {
                 "count": str(count),
                 "filters": "List()",
-                "origin": "FACETED_SEARCH",
+                "origin": "GLOBAL_SEARCH_HEADER",
                 "q": "all",
                 "start": len(results) + offset,
-                "queryContext": "List(spellCorrectionEnabled->true,relatedSearchesEnabled->true,kcardTypes->PROFILE|COMPANY)",
-            }
+                "queryContext": "List(spellCorrectionEnabled->true,relatedSearchesEnabled->true,kcardTypes->PROFILE|COMPANY)",}
+                
             default_params.update(params)
 
             res = self._fetch(
@@ -406,9 +407,11 @@ class Linkedin(object):
         if industries:
             filters.append(f'industryCompanyVertical->{"|".join(industries)}')
             
-        params = {"filters": "List({})".format(",".join(filters)),
-                  "queryContext": "List(spellCorrectionEnabled->true)"}
-
+        params = {"decorationId": "com.linkedin.voyager.dash.deco.search.SearchClusterCollection-169",
+                  "origin": "FACETED_SEARCH",
+                  "q": "all",
+                  "query":f"(keywords:{keywords},flagshipSearchIntent:SEARCH_SRP,queryParameters:(companyHqGeo:List({regions}), industryCompanyVertical:List(),resultType:List(COMPANIES)),includeFiltersInResponse:false)"
+                  "start": "0",}
         if keywords:
             params["keywords"] = keywords
     
