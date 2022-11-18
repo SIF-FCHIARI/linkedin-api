@@ -401,9 +401,7 @@ class Linkedin(object):
             filters.append(f'industryCompanyVertical->{"|".join(industries)}')
 
         params = {
-            "filters": "List({})".format(",".join(filters)),
-            "queryContext": "List(spellCorrectionEnabled->true)",
-        }
+            "filters": "List({})".format(",".join(filters))}
 
         if keywords:
             params["keywords"] = keywords
