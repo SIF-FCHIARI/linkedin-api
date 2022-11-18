@@ -396,9 +396,9 @@ class Linkedin(object):
         filters = ["resultType->COMPANIES"]
         
         if regions:
-            filters.append(f'geoUrn->{"|".join(regions)}')
+            filters.append(f'companyHqGeo->{"|".join(regions)}')
         if industries:
-            filters.append(f'industry->{"|".join(industries)}')
+            filters.append(f'industryCompanyVertical->{"|".join(industries)}')
 
         params = {
             "filters": "List({})".format(",".join(filters)),
