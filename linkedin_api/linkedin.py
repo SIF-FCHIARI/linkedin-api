@@ -401,13 +401,14 @@ class Linkedin(object):
         """
         filters = ["resultType->COMPANIES"]
         
-        filters.append(f'companyHqGeo->{"|".join(regions)}'
-        filters.append(f'industryCompanyVertical->{"|".join(industries)}')
-
         params = {"filters": "List({})".format(",".join(filters))}
 
         if keywords:
             params["keywords"] = keywords
+        if regions: 
+            params["companyHqGeo"] = regions
+        if industries:
+            params["industryCompanyVertical"] = industries
 
         data = self.search(params, **kwargs)
 
