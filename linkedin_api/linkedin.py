@@ -408,7 +408,7 @@ class Linkedin(object):
             
         params = {"filters": "List({})".format(",".join(filters)),
                   "queryContext": "List(spellCorrectionEnabled->true)"}
-}
+
         if keywords:
             params["keywords"] = keywords
     
