@@ -401,19 +401,12 @@ class Linkedin(object):
         :return: List of companies
         :rtype: list
         """
-        filters = ["resultType->COMPANIES"]
-        if regions:
-            filters.append(f'companyHqGeo->{"|".join(regions)}')
-        if industries:
-            filters.append(f'industryCompanyVertical->{"|".join(industries)}')
-            
+                
         params = {"decorationId": "com.linkedin.voyager.dash.deco.search.SearchClusterCollection-169",
                   "origin": "FACETED_SEARCH",
                   "q": "all",
-                  "query":f"(keywords:{keywords},flagshipSearchIntent:SEARCH_SRP,queryParameters:(companyHqGeo:List({regions}), industryCompanyVertical:List(),resultType:List(COMPANIES)),includeFiltersInResponse:false)"
+                  "query":f"(keywords:{keywords},flagshipSearchIntent:SEARCH_SRP,queryParameters:(companyHqGeo:List({regions},), industryCompanyVertical:List({industries}),resultType:List(COMPANIES)),includeFiltersInResponse:false)"
                   "start": "0",}
-        if keywords:
-            params["keywords"] = keywords
     
 
         data = self.search(params, **kwargs)
