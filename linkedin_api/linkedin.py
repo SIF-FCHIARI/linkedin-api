@@ -410,9 +410,9 @@ class Linkedin(object):
         if keywords:
            params["keywords"] = keywords
         if regions:
-           params["CompanyHqGeo"] = List(keywords)
+           params["CompanyHqGeo"] = regions
         if industries:
-           params["industryCompanyVertical"] = List(industries)
+           params["industryCompanyVertical"] = industries
             
         data = self.search(params, **kwargs)
 
