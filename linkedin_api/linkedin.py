@@ -383,9 +383,9 @@ class Linkedin(object):
 
     def search_companies(
         self, 
-        keywords=None, 
-        regions=None, 
-        industries=None, 
+        keywords, 
+        regions, 
+        industries, 
         **kwargs
     ):
         """Perform a LinkedIn search for companies.
@@ -406,7 +406,7 @@ class Linkedin(object):
                   "q": "all",
                   "query":f"(keywords:{keywords},flagshipSearchIntent:SEARCH_SRP,queryParameters:(companyHqGeo:List({regions},), industryCompanyVertical:List({industries}),resultType:List(COMPANIES)),includeFiltersInResponse:false)",
                   "start": "0"}
-    
+       
 
         data = self.search(params, **kwargs)
 
