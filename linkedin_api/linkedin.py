@@ -380,7 +380,13 @@ class Linkedin(object):
 
         return results
 
-    def search_companies(self, keywords=None, regions=None, industries=None, **kwargs):
+    def search_companies(
+        self, 
+        keywords=None, 
+        regions=None, 
+        industries=None, 
+        **kwargs
+    ):
         """Perform a LinkedIn search for companies.
 
         :param keywords: A list of search keywords (str)
@@ -394,14 +400,12 @@ class Linkedin(object):
         :rtype: list
         """
         filters = ["resultType->COMPANIES"]
-        
         if regions:
             filters.append(f'companyHqGeo->{"|".join(regions)}')
         if industries:
             filters.append(f'industryCompanyVertical->{"|".join(industries)}')
 
-        params = {
-            "filters": "List({})".format(",".join(filters))}
+        params = {"filters": "List({})".format(",".join(filters))}
 
         if keywords:
             params["keywords"] = keywords
