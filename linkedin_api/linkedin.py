@@ -216,7 +216,7 @@ class Linkedin(object):
             default_params = {
                 "count": str(count),
                 "filters": "List()",
-                "origin": "GLOBAL_SEARCH_HEADER",
+                "origin": "FACETED_SEARCH",
                 "q": "all",
                 "start": len(results) + offset,
                 "queryContext": "List(spellCorrectionEnabled->true,relatedSearchesEnabled->true,kcardTypes->PROFILE|COMPANY)",
@@ -401,17 +401,17 @@ class Linkedin(object):
         :rtype: list
         """
         filters = ["resultType->COMPANIES"]
-        
-        params = {"filters": "List({})".format(",".join(filters)),
-                  "queryContext": "List(spellCorrectionEnabled->true)"}
-}
-
-        if keywords:
-            params["keywords"] = keywords
         if regions: 
             params["companyHqGeo"] = regions
         if industries:
             params["industryCompanyVertical"] = industries
+            
+        params = {"filters": "List({})".format(",".join(filters)),
+                  "queryContext": "List(spellCorrectionEnabled->true)"}
+}
+        if keywords:
+            params["keywords"] = keywords
+    
 
         data = self.search(params, **kwargs)
 
