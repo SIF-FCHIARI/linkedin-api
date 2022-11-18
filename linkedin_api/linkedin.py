@@ -401,10 +401,10 @@ class Linkedin(object):
         :rtype: list
         """
         filters = ["resultType->COMPANIES"]
-        if regions: 
-            params["companyHqGeo"] = regions
+        if regions:
+            filters.append(f'companyHqGeo->{"|".join(regions)}')
         if industries:
-            params["industryCompanyVertical"] = industries
+            filters.append(f'industryCompanyVertical->{"|".join(industries)}')
             
         params = {"filters": "List({})".format(",".join(filters)),
                   "queryContext": "List(spellCorrectionEnabled->true)"}
