@@ -213,7 +213,6 @@ class Linkedin(object):
             # when we're close to the limit, only fetch what we need to
             if limit > -1 and limit - len(results) < count:
                 count = limit - len(results)
-            default_params = {
                 default_params = {
                 "count": str(count),
                 "filters": "List()",
