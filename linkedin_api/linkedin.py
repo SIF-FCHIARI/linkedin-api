@@ -406,6 +406,13 @@ class Linkedin(object):
                   "q": "all",
                   "query":f"(keywords:{keywords},flagshipSearchIntent:SEARCH_SRP,queryParameters:(companyHqGeo:List({regions}), industryCompanyVertical:List({industries}),resultType:List(COMPANIES)),includeFiltersInResponse:false)",
                   "start": "0"}
+        
+         if keywords:
+            params["keywords"] = keywords
+         if regions:
+            params["CompanyHqGeo"] = List(keywords)
+         if industries:
+            params["industryCompanyVertical"] = List(industries)
             
         data = self.search(params, **kwargs)
 
