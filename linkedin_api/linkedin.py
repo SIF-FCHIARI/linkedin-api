@@ -415,7 +415,7 @@ class Linkedin(object):
                     "status": "200",
                     "method":"GET",
                     "body":"bpr-guid-3923694",
-                    headers={"x-li-uuid": "AAXt9zxIZqaIIVHZm3HnjA\u003D\u003D"},
+                    "headers":{"x-li-uuid": "AAXt9zxIZqaIIVHZm3HnjA\u003D\u003D"},
                     })
 
             data = res.json()
