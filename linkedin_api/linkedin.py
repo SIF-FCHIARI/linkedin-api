@@ -415,7 +415,7 @@ class Linkedin(object):
             "headers":{"x-li-uuid":"AAXt+ck0DFPOoNkqZy941A"}
              }
             
-        res = self._fetch(f"/search/dash/clusters?{urlencode(params)}")
+        res = self._fetch("/search/dash/clusters?", params = params)
 
         data = res.json()
         print(data)
