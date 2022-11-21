@@ -401,34 +401,34 @@ class Linkedin(object):
         :return: List of companies
         :rtype: list
         """
-         if results is None:
+        if results is None:
             results = []
             
-            params = {
-                      "decorationId": "com.linkedin.voyager.dash.deco.search.SearchClusterCollection-169",
-                      "origin": "FACETED_SEARCH",
-                      "q": "all",
-                      "query":f"(keywords:{keywords},flagshipSearchIntent:SEARCH_SRP,queryParameters:(companyHqGeo:List({regions}), industryCompanyVertical:List({industries}),resultType:List(COMPANIES)),includeFiltersInResponse:false)",
-                      "start": "0",
-                      "body":"bpr-guid-4696073",
-                      "method":"GET",
-                      "headers":{"x-li-uuid":"AAXt+ck0DFPOoNkqZy941A"}
-                     }
+        params = {
+            "decorationId": "com.linkedin.voyager.dash.deco.search.SearchClusterCollection-169",
+            "origin": "FACETED_SEARCH",
+            "q": "all",
+            "query":"(keywords:{"keywords"},flagshipSearchIntent:SEARCH_SRP,queryParameters:(companyHqGeo:List({"regions"}), industryCompanyVertical:List({"industries"}),resultType:List(COMPANIES)),includeFiltersInResponse:false)",
+            "start": "0",
+            "body":"bpr-guid-4696073",
+            "method":"GET",
+            "headers":{"x-li-uuid":"AAXt+ck0DFPOoNkqZy941A"}
+             }
             
             res = self._fetch(f"/voyager/api/search/dash/clusters?{urlencode(params)}")
 
             data = res.json()
             
-            if (
-                len(data["elements"]) == 0
-                or (max_results is not None and len(results) >= max_results)
-                or (
-                    max_results is not None
-                    and len(results) / max_results >= Linkedin._MAX_REPEATED_REQUESTS
-                )
-             ):
+        if (
+            len(data["elements"]) == 0
+            or (max_results is not None and len(results) >= max_results)
+            or (
+                max_results is not None
+                and len(results) / max_results >= Linkedin._MAX_REPEATED_REQUESTS
+            )
+        ):
 
-                return results
+           return results
             
         results.extend(data["elements"])
         self.logger.debug(f"results grew: {len(results)}")
