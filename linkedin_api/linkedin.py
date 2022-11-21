@@ -418,7 +418,7 @@ class Linkedin(object):
             
             
             res = self._fetch(
-                    f"/search/dash/clusters?{urlencode(default_params, safe='(),')}",
+                    f"/search/dash/clusters?{urlencode(params, safe='(),')}",
                     headers={"accept": "application/vnd.linkedin.normalized+json+2.1"},
                 )
 
