@@ -403,7 +403,7 @@ class Linkedin(object):
         if results is None:
             results = []
             
-        default_params = {
+        params = {
                 "decorationId": "com.linkedin.voyager.dash.deco.search.SearchClusterCollection-169",
                 "origin": "FACETED_SEARCH",
                 "q": "all",
@@ -411,8 +411,7 @@ class Linkedin(object):
                 "start": "0" }
             
             
-        res = self._fetch(f"search/dash/clusters?{urlencode(default_params, safe='(),')}", 
-                          headers={"accept": "application/vnd.linkedin.normalized+json+2.1"},
+        res = self._fetch(f"{self.client.API_BASE_URL}search/dash/clusters", params=params)
                          )
         
         data = res.json()
