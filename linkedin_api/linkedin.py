@@ -407,7 +407,11 @@ class Linkedin(object):
                     "origin": "FACETED_SEARCH",
                     "q": "all",
                     "query":f"(keywords:'{keywords}',flagshipSearchIntent:SEARCH_SRP,queryParameters:(companyHqGeo:List({regions}),industryCompanyVertical:List({industries}),resultType:List(COMPANIES)),includeFiltersInResponse:false)",
-                    "start": "0" }
+                    "start": 0,
+                    "status":200,
+                    "body":"bpr-guid-3923694",
+                    "method":"GET",
+                    "headers":{"x-li-uuid":"AAXt9zxIZqaIIVHZm3HnjA\u003D\u003D"}}
             
             
             res = self._fetch(
