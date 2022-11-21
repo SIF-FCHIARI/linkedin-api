@@ -403,18 +403,15 @@ class Linkedin(object):
         if results is None:
             results = []
             
-        '''params = {
+        params = {
             "decorationId": "com.linkedin.voyager.dash.deco.search.SearchClusterCollection-169",
             "origin": "FACETED_SEARCH",
             "q": "all",
             "query":f"(keywords:{keywords},flagshipSearchIntent:SEARCH_SRP,queryParameters:(companyHqGeo:List({regions}), industryCompanyVertical:List({industries}),resultType:List(COMPANIES)),includeFiltersInResponse:false)",
-            "start": "0",
-            "body":"bpr-guid-4696073",
-            "method":"GET",
-            "headers":{"x-li-uuid":"AAXt+ck0DFPOoNkqZy941A"}
-             }'''
+            "start": "0" }
             
-        res = self._fetch("voyager/api/search/dash/clusters?")
+            
+        res = self._fetch("search/dash/clusters?", params=params)
         data = res.json()
         
         print(data)
