@@ -408,10 +408,10 @@ class Linkedin(object):
                 "origin": "FACETED_SEARCH",
                 "q": "all",
                 "query":f"(keywords:'{keywords}',flagshipSearchIntent:SEARCH_SRP,queryParameters:(companyHqGeo:List({regions}),industryCompanyVertical:List({industries}),resultType:List(COMPANIES)),includeFiltersInResponse:false)",
-                "start": "0" }
+                "start": 0 }
             
             
-        res = self._fetch(f"{self.client.API_BASE_URL}search/dash/clusters", params=params)
+        res = self._fetch(f"search/dash/clusters", params=params)
                          
         
         data = res.json()
