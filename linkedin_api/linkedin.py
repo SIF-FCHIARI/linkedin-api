@@ -415,7 +415,7 @@ class Linkedin(object):
             "headers":{"x-li-uuid":"AAXt+ck0DFPOoNkqZy941A"}
              }'''
             
-        res = self._fetch("/search/dash/clusters?decorationId\u003Dcom.linkedin.voyager.dash.deco.search.SearchClusterCollection-169\u0026origin\u003DFACETED_SEARCH\u0026q\u003Dall\u0026query\u003D(keywords:energy%20hvac%20,flagshipSearchIntent:SEARCH_SRP,queryParameters:(companyHqGeo:List(104406358),industryCompanyVertical:List(25),resultType:List(COMPANIES)),includeFiltersInResponse:false)\u0026start\u003D0","status":200,"body":"bpr-guid-4696073","method":"GET","headers":{"x-li-uuid":"AAXt+ck0DFPOoNkqZy941A\u003D\u003D"}})
+        res = self._fetch("voyager/api/search/dash/clusters?decorationId\u003Dcom.linkedin.voyager.dash.deco.search.SearchClusterCollection-169\u0026origin\u003DFACETED_SEARCH\u0026q\u003Dall\u0026query\u003D(keywords:energy%20hvac%20,flagshipSearchIntent:SEARCH_SRP,queryParameters:(companyHqGeo:List(104406358),industryCompanyVertical:List(25),resultType:List(COMPANIES)),includeFiltersInResponse:false)\u0026start\u003D0","status":200,"body":"bpr-guid-4696073","method":"GET","headers":{"x-li-uuid":"AAXt+ck0DFPOoNkqZy941A\u003D\u003D"}})
 
         data = res.json()
         print(data)
