@@ -403,7 +403,7 @@ class Linkedin(object):
         if results is None:
             results = []
             
-       default_params = {
+        default_params = {
                 "decorationId": "com.linkedin.voyager.dash.deco.search.SearchClusterCollection-135",
                 "origin": "FACETED_SEARCH",
                 "q": "all",
