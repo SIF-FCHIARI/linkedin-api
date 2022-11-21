@@ -411,7 +411,7 @@ class Linkedin(object):
             "start": "0" }
             
             
-        res = self._fetch("search/dash/clusters?", params=params)
+        res = self._fetch("search/dash/clusters?"{urlencode(params)}")
         data = res.json()
         
         print(data)
