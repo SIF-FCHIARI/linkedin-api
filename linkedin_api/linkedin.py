@@ -418,28 +418,8 @@ class Linkedin(object):
         res = self._fetch(f"/search/dash/clusters?{urlencode(params)}")
 
         data = res.json()
-            
-        if (
-            len(data["elements"]) == 0
-            or (max_results is not None and len(results) >= max_results)
-            or (
-                max_results is not None
-                and len(results) / max_results >= Linkedin._MAX_REPEATED_REQUESTS
-            )
-        ):
-
-           return results
-            
-        results.extend(data["elements"])
-        self.logger.debug(f"results grew: {len(results)}")
-
-        return self.search_companies(
-            keywords=keywords,
-            regions=regions,
-            industries=industries,
-            results=results,
-            max_results=max_results,
-        )
+        print(data)
+        return data 
 
     def search_jobs(
         self,
