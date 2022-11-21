@@ -410,7 +410,7 @@ class Linkedin(object):
             # when we're close to the limit, only fetch what we need to
             if limit > -1 and limit - len(results) < count:
                 count = limit - len(results)       
-            default_params = {"decorationId": "com.linkedin.voyager.dash.deco.search.SearchClusterCollection-169",
+            params = {"decorationId": "com.linkedin.voyager.dash.deco.search.SearchClusterCollection-169",
                       "origin": "FACETED_SEARCH",
                       "q": "all",
                       "query":f"(keywords:{keywords},flagshipSearchIntent:SEARCH_SRP,queryParameters:(companyHqGeo:List({regions}), industryCompanyVertical:List({industries}),resultType:List(COMPANIES)),includeFiltersInResponse:false)",
@@ -420,11 +420,7 @@ class Linkedin(object):
                       "headers":{"x-li-uuid":"AAXt+ck0DFPOoNkqZy941A"}
                      }
  
-    
-            res = self._fetch(
-                    f"/voyager/api/search/dash/clusters?{urlencode(default_params, safe='(),')}",
-                    headers={"accept": "application/vnd.linkedin.normalized+json+2.1"},
-                )
+            res = self._fetch("/voyager/api/search/dash/clusters?", params=params)
 
             data = res.json()
             
