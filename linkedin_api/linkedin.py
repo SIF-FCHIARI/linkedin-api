@@ -440,7 +440,7 @@ class Linkedin(object):
             (-1 < limit <= len(results))  # if our results exceed set limit
             or len(results) / count >= Linkedin._MAX_REPEATED_REQUESTS
         ) or len(new_elements) == 0:
-            break
+                break
 
         self.logger.debug(f"results grew to {len(results)}")
 
