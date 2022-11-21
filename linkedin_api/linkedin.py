@@ -386,7 +386,8 @@ class Linkedin(object):
         keywords, 
         regions, 
         industries, 
-        **kwargs
+        limit=-1, 
+        offset=0,
     ):
         """Perform a LinkedIn search for companies.
 
@@ -400,35 +401,66 @@ class Linkedin(object):
         :return: List of companies
         :rtype: list
         """
-                
-        params = {"decorationId": "com.linkedin.voyager.dash.deco.search.SearchClusterCollection-169",
-                  "origin": "FACETED_SEARCH",
-                  "q": "all",
-                  "query":f"(keywords:{keywords},flagshipSearchIntent:SEARCH_SRP,queryParameters:(companyHqGeo:List({regions}), industryCompanyVertical:List({industries}),resultType:List(COMPANIES)),includeFiltersInResponse:false)",
-                  "start": "0"}
- 
-        if keywords:
-           params["keywords"] = keywords
-        if regions:
-           params["CompanyHqGeo"] = regions
-        if industries:
-           params["industryCompanyVertical"] = industries
-            
-        data = self.search(params, **kwargs)
+        count = Linkedin._MAX_SEARCH_COUNT
+        if limit is None:
+            limit = -1
 
         results = []
-        for item in data:
-            if item.get("type") != "COMPANY":
-                continue
-            results.append(
-                {
-                    "urn": item.get("targetUrn"),
-                    "urn_id": get_id_from_urn(item.get("targetUrn")),
-                    "name": item.get("title", {}).get("text"),
-                    "headline": item.get("headline", {}).get("text"),
-                    "subline": item.get("subline", {}).get("text"),
-                }
-            )
+        while True:
+            # when we're close to the limit, only fetch what we need to
+            if limit > -1 and limit - len(results) < count:
+                count = limit - len(results)       
+            default_params = {"decorationId": "com.linkedin.voyager.dash.deco.search.SearchClusterCollection-169",
+                      "origin": "FACETED_SEARCH",
+                      "q": "all",
+                      "query":f"(keywords:{keywords},flagshipSearchIntent:SEARCH_SRP,queryParameters:(companyHqGeo:List({regions}), industryCompanyVertical:List({industries}),resultType:List(COMPANIES)),includeFiltersInResponse:false)",
+                      "start": "0",
+                      "body":"bpr-guid-4696073",
+                      "method":"GET",
+                      "headers":{"x-li-uuid":"AAXt+ck0DFPOoNkqZy941A"}
+                     }
+ 
+    
+            res = self._fetch(
+                    /voyager/api/search/dash/clusters?{urlencode(default_params, safe='(),')}",
+                    headers={"accept": "application/vnd.linkedin.normalized+json+2.1"},
+                )
+
+            data = res.json()
+            
+            new_elements = []
+            elements = data.get("data", {}).get("elements", [])
+
+            for element in elements:
+                new_elements.extend(element.get("elements", {}))
+                # not entirely sure what extendedElements generally refers to - keyword search gives back a single job?
+                # new_elements.extend(data["data"]["elements"][i]["extendedElements"])
+            results.extend(new_elements)
+
+            # break the loop if we're done searching
+            # NOTE: we could also check for the `total` returned in the response.
+            # This is in data["data"]["paging"]["total"]
+            if (
+                (-1 < limit <= len(results))  # if our results exceed set limit
+                or len(results) / count >= Linkedin._MAX_REPEATED_REQUESTS
+            ) or len(new_elements) == 0:
+                break
+
+            self.logger.debug(f"results grew to {len(results)}")
+            
+            
+            for item in data:
+                if item.get("type") != "COMPANY":
+                    continue
+                results.append(
+                    {
+                        "urn": item.get("targetUrn"),
+                        "urn_id": get_id_from_urn(item.get("targetUrn")),
+                        "name": item.get("title", {}).get("text"),
+                        "headline": item.get("headline", {}).get("text"),
+                        "subline": item.get("subline", {}).get("text"),
+                    }
+                )
 
         return results
 
