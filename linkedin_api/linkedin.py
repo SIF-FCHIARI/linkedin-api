@@ -413,8 +413,8 @@ class Linkedin(object):
             res = self._fetch(
                     f"/search/dash/clusters?{urlencode(params, safe='(),')}",
                     "status":200,
-                    "method":"GET"
-                    "body":"bpr-guid-3923694"
+                    "method":"GET",
+                    "body":"bpr-guid-3923694",
                     headers={"x-li-uuid": "AAXt9zxIZqaIIVHZm3HnjA\u003D\u003D"},
                 )
 
