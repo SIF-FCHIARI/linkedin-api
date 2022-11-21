@@ -385,9 +385,9 @@ class Linkedin(object):
         self, 
         keywords, 
         regions, 
-        industries, 
-        limit=-1, 
-        offset=0,
+        industries,
+        max_results = None
+        results=None
     ):
         """Perform a LinkedIn search for companies.
 
@@ -401,15 +401,9 @@ class Linkedin(object):
         :return: List of companies
         :rtype: list
         """
-        count = Linkedin._MAX_SEARCH_COUNT
-        if limit is None:
-            limit = -1
-
-        results = []
-        while True:
-            # when we're close to the limit, only fetch what we need to
-            if limit > -1 and limit - len(results) < count:
-                count = limit - len(results)       
+         if results is None:
+            results = []
+            
             params = {
                       "decorationId": "com.linkedin.voyager.dash.deco.search.SearchClusterCollection-169",
                       "origin": "FACETED_SEARCH",
@@ -425,41 +419,27 @@ class Linkedin(object):
 
             data = res.json()
             
-            new_elements = []
-            elements = data.get("data", {}).get("elements", [])
-
-            for element in elements:
-                new_elements.extend(element.get("elements", {}))
-                # not entirely sure what extendedElements generally refers to - keyword search gives back a single job?
-                # new_elements.extend(data["data"]["elements"][i]["extendedElements"])
-            results.extend(new_elements)
-
-            # break the loop if we're done searching
-            # NOTE: we could also check for the `total` returned in the response.
-            # This is in data["data"]["paging"]["total"]
             if (
-                (-1 < limit <= len(results))  # if our results exceed set limit
-                or len(results) / count >= Linkedin._MAX_REPEATED_REQUESTS
-            ) or len(new_elements) == 0:
-                break
-
-            self.logger.debug(f"results grew to {len(results)}")
-            
-            
-            for item in data:
-                if item.get("type") != "COMPANY":
-                    continue
-                results.append(
-                    {
-                        "urn": item.get("targetUrn"),
-                        "urn_id": get_id_from_urn(item.get("targetUrn")),
-                        "name": item.get("title", {}).get("text"),
-                        "headline": item.get("headline", {}).get("text"),
-                        "subline": item.get("subline", {}).get("text"),
-                    }
+                len(data["elements"]) == 0
+                or (max_results is not None and len(results) >= max_results)
+                or (
+                    max_results is not None
+                    and len(results) / max_results >= Linkedin._MAX_REPEATED_REQUESTS
                 )
+             ):
 
-        return results
+                return results
+            
+        results.extend(data["elements"])
+        self.logger.debug(f"results grew: {len(results)}")
+
+        return self.search_companies(
+            keywords=keywords,
+            regions=regions,
+            industries=industries,
+            results=results,
+            max_results=max_results,
+        )
 
     def search_jobs(
         self,
