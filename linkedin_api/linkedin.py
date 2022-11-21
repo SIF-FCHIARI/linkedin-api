@@ -422,7 +422,7 @@ class Linkedin(object):
  
     
             res = self._fetch(
-                    /voyager/api/search/dash/clusters?{urlencode(default_params, safe='(),')}",
+                    f"/voyager/api/search/dash/clusters?{urlencode(default_params, safe='(),')}",
                     headers={"accept": "application/vnd.linkedin.normalized+json+2.1"},
                 )
 
