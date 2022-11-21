@@ -386,7 +386,7 @@ class Linkedin(object):
         keywords=None, 
         regions=None, 
         industries=None,
-        limit = -1,
+        results = None,
     ):
         """Perform a LinkedIn search for companies.
 
@@ -400,15 +400,8 @@ class Linkedin(object):
         :return: List of companies
         :rtype: list
         """
-        count = Linkedin._MAX_SEARCH_COUNT
-        if limit is None:
-            limit = -1
-
-        results = []
-        while True:
-            # when we're close to the limit, only fetch what we need to
-            if limit > -1 and limit - len(results) < count:
-                count = limit - len(results)
+        if results is None:
+            results = []
             params = {
                     "decorationId": "com.linkedin.voyager.dash.deco.search.SearchClusterCollection-169",
                     "origin": "FACETED_SEARCH",
@@ -423,7 +416,9 @@ class Linkedin(object):
                 )
 
             data = res.json()
-
+            
+            print(data)
+            
             new_elements = []
             elements = data.get("data", {}).get("elements", [])
 
@@ -432,15 +427,6 @@ class Linkedin(object):
                     # not entirely sure what extendedElements generally refers to - keyword search gives back a single job?
                     # new_elements.extend(data["data"]["elements"][i]["extendedElements"])
             results.extend(new_elements)
-
-                # break the loop if we're done searching
-                # NOTE: we could also check for the `total` returned in the response.
-                # This is in data["data"]["paging"]["total"]
-            if (
-                    (-1 < limit <= len(results))  # if our results exceed set limit
-                    or len(results) / count >= Linkedin._MAX_REPEATED_REQUESTS
-                ) or len(new_elements) == 0:
-                    break
 
             self.logger.debug(f"results grew to {len(results)}")
 
