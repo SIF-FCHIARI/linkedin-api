@@ -407,11 +407,16 @@ class Linkedin(object):
             "decorationId": "com.linkedin.voyager.dash.deco.search.SearchClusterCollection-169",
             "origin": "FACETED_SEARCH",
             "q": "all",
-            "query":f"(keywords:{keywords},flagshipSearchIntent:SEARCH_SRP,queryParameters:(companyHqGeo:List({regions}), industryCompanyVertical:List({industries}),resultType:List(COMPANIES)),includeFiltersInResponse:false)",
+            "keywords" : keywords,
+            "companyHqGeo": f"List({regions},)"
+            "industryCompanyVertical":f"List({industries})",
+            "resultType": f"List(COMPANIES))",
             "start": "0" }
             
             
-        res = self._fetch(f"search/dash/clusters?{urlencode(params, safe='(),')}", headers={"accept": "application/vnd.linkedin.normalized+json+2.1"})
+        res = self._fetch(f"search/dash/clusters?{urlencode(params, safe='(),')}", 
+                          headers={"accept": "application/vnd.linkedin.normalized+json+2.1"},
+                         )
         data = res.json()
         
         print(data)
