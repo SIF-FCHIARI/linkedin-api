@@ -385,7 +385,8 @@ class Linkedin(object):
         self, 
         keywords=None, 
         regions=None, 
-        industries=None,
+        industries=None
+        Results=None,
     ):
         """Perform a LinkedIn search for companies.
 
