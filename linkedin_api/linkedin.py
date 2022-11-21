@@ -386,7 +386,7 @@ class Linkedin(object):
         keywords, 
         regions, 
         industries,
-        max_results = None
+        max_results = None,
         results=None
     ):
         """Perform a LinkedIn search for companies.
