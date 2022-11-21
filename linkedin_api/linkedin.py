@@ -415,11 +415,11 @@ class Linkedin(object):
             "headers":{"x-li-uuid":"AAXt+ck0DFPOoNkqZy941A"}
              }
             
-         res = self._fetch(f"/voyager/api/search/dash/clusters?{urlencode(params)}")
+        res = self._fetch(f"/voyager/api/search/dash/clusters?{urlencode(params)}")
 
-         data = res.json()
+        data = res.json()
             
-         if (
+        if (
             len(data["elements"]) == 0
             or (max_results is not None and len(results) >= max_results)
             or (
