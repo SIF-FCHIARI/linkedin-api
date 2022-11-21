@@ -409,7 +409,7 @@ class Linkedin(object):
             # when we're close to the limit, only fetch what we need to
             if limit > -1 and limit - len(results) < count:
                 count = limit - len(results)
-                params = {
+            params = {
                     "decorationId": "com.linkedin.voyager.dash.deco.search.SearchClusterCollection-169",
                     "origin": "FACETED_SEARCH",
                     "q": "all",
