@@ -414,8 +414,9 @@ class Linkedin(object):
             "headers":{"x-li-uuid":"AAXt+ck0DFPOoNkqZy941A"}
              }'''
             
-        res = self._fetch("voyager/api/search/dash/clusters")
+        res = self._fetch("voyager/api/search/dash/clusters?")
         data = res.json()
+        
         print(data)
         return data 
 
