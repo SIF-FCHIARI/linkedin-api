@@ -417,29 +417,29 @@ class Linkedin(object):
                     "start": 0 }
             
             
-        res = self._fetch(
-                f"/search/dash/clusters?{urlencode(default_params, safe='(),')}",
-                headers={"accept": "application/vnd.linkedin.normalized+json+2.1"},
-            )
-        
-        data = res.json()
+            res = self._fetch(
+                    f"/search/dash/clusters?{urlencode(default_params, safe='(),')}",
+                    headers={"accept": "application/vnd.linkedin.normalized+json+2.1"},
+                )
 
-        new_elements = []
-        elements = data.get("data", {}).get("elements", [])
+            data = res.json()
 
-        for element in elements:
-            new_elements.extend(element.get("elements", {}))
-                # not entirely sure what extendedElements generally refers to - keyword search gives back a single job?
-                # new_elements.extend(data["data"]["elements"][i]["extendedElements"])
-        results.extend(new_elements)
+            new_elements = []
+            elements = data.get("data", {}).get("elements", [])
 
-            # break the loop if we're done searching
-            # NOTE: we could also check for the `total` returned in the response.
-            # This is in data["data"]["paging"]["total"]
-        if (
-                (-1 < limit <= len(results))  # if our results exceed set limit
-                or len(results) / count >= Linkedin._MAX_REPEATED_REQUESTS
-            ) or len(new_elements) == 0:
+            for element in elements:
+                new_elements.extend(element.get("elements", {}))
+                    # not entirely sure what extendedElements generally refers to - keyword search gives back a single job?
+                    # new_elements.extend(data["data"]["elements"][i]["extendedElements"])
+            results.extend(new_elements)
+
+                # break the loop if we're done searching
+                # NOTE: we could also check for the `total` returned in the response.
+                # This is in data["data"]["paging"]["total"]
+            if (
+                    (-1 < limit <= len(results))  # if our results exceed set limit
+                    or len(results) / count >= Linkedin._MAX_REPEATED_REQUESTS
+                ) or len(new_elements) == 0:
                     break
 
             self.logger.debug(f"results grew to {len(results)}")
