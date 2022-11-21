@@ -411,7 +411,7 @@ class Linkedin(object):
             "start": "0" }
             
             
-        res = self._fetch(f"search/dash/clusters?{urlencode(params, safe='(),')}")
+        res = self._fetch(f"search/dash/clusters?{urlencode(params, safe='(),')}", headers={"accept": "application/vnd.linkedin.normalized+json+2.1"})
         data = res.json()
         
         print(data)
