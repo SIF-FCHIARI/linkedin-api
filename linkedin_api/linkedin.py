@@ -436,7 +436,7 @@ class Linkedin(object):
             # break the loop if we're done searching
             # NOTE: we could also check for the `total` returned in the response.
             # This is in data["data"]["paging"]["total"]
-            if (
+        if (
                 (-1 < limit <= len(results))  # if our results exceed set limit
                 or len(results) / count >= Linkedin._MAX_REPEATED_REQUESTS
             ) or len(new_elements) == 0:
