@@ -408,7 +408,7 @@ class Linkedin(object):
             "origin": "FACETED_SEARCH",
             "q": "all",
             "keywords" : keywords,
-            "companyHqGeo": f"List({regions},)"
+            "companyHqGeo": f"List({regions})",
             "industryCompanyVertical":f"List({industries})",
             "resultType": f"List(COMPANIES))",
             "start": "0" }
