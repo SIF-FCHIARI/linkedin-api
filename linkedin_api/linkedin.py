@@ -415,7 +415,7 @@ class Linkedin(object):
                     }
             
             res = self._fetch(
-                    f"/search/dash/clusters?{urlencode(params, safe='(),')}"
+                    f"/search/dash/clusters?{urlencode(params, safe='(),')}")
                     
 
             data = res.json()
