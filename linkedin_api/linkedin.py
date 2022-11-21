@@ -411,7 +411,7 @@ class Linkedin(object):
             "start": "0" }
             
             
-        res = self._fetch(f"search/dash/clusters?{urlencode(default_params, safe='(),')}")
+        res = self._fetch(f"search/dash/clusters?{urlencode(params, safe='(),')}")
         data = res.json()
         
         print(data)
