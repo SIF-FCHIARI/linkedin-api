@@ -404,7 +404,7 @@ class Linkedin(object):
             results = []
             
         default_params = {
-                "decorationId": "com.linkedin.voyager.dash.deco.search.SearchClusterCollection-135",
+                "decorationId": "com.linkedin.voyager.dash.deco.search.SearchClusterCollection-169",
                 "origin": "FACETED_SEARCH",
                 "q": "all",
                 "query":f"(keywords:'{keywords}',flagshipSearchIntent:SEARCH_SRP,queryParameters:(companyHqGeo:List({regions}),industryCompanyVertical:List({industries}),resultType:List(COMPANIES)),includeFiltersInResponse:false)",
