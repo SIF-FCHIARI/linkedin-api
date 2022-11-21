@@ -412,7 +412,7 @@ class Linkedin(object):
             
             
         res = self._fetch(f"{self.client.API_BASE_URL}search/dash/clusters", params=params)
-                         )
+                         
         
         data = res.json()
         
