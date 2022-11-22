@@ -408,10 +408,6 @@ class Linkedin(object):
                     "q": "all",
                     "query":f"(keywords:'{keywords}',flagshipSearchIntent:SEARCH_SRP,queryParameters:(companyHqGeo:List({regions}),industryCompanyVertical:List({industries}),resultType:List(COMPANIES)),includeFiltersInResponse:false)",
                     "start": 0,
-                    "status": "200",
-                    "method":"GET",
-                    "body":"bpr-guid-3923694",
-                    "headers":{"x-li-uuid": "AAXt9zxIZqaIIVHZm3HnjA\u003D\u003D"},
                     }
             
             res = self._fetch(
