@@ -415,7 +415,7 @@ class Linkedin(object):
                     }
             
             res = self._fetch(
-                    f"/search/dash/clusters?{urlencode(params, safe='(),')}",
+                    f"/search/dash/clusters?{urlencode(params, safe='(),')}", {
                     "headers": {
                                     "accept": "application/vnd.linkedin.normalized+json+2.1",
                                     "accept-language": "en-US,en;q=0.9,ml;q=0.8",
@@ -429,7 +429,7 @@ class Linkedin(object):
                                     "x-li-page-instance": "urn:li:page:d_flagship3_search_srp_companies;x4llj2qbS9OTdzjbZcNlvg==",
                                     "x-li-track": "{\"clientVersion\":\"1.10.594\",\"mpVersion\":\"1.10.594\",\"osName\":\"web\",\"timezoneOffset\":5.5,\"timezone\":\"Asia/Calcutta\",\"deviceFormFactor\":\"DESKTOP\",\"mpName\":\"voyager-web\",\"displayDensity\":2.5,\"displayWidth\":4480,\"displayHeight\":2800}",
                                     "x-restli-protocol-version": "2.0.0"
-                                    })
+                                    }})
                     
 
             data = res.json()
